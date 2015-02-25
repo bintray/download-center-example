@@ -1,6 +1,6 @@
 {
-    "bintrayUser" : "eyalbr",
-    "bintrayKey" : "2136f6683b380b3067e93a5437808fa838423f13163ad6866898a008ffb335e0",
+    "bintrayUser" : "user",
+    "bintrayKey" : "key",
     "subject" : "omersorg",
     "repoName" : "privateRepo",
     "packageName" : "someTestPackage",        
