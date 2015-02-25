@@ -13,27 +13,31 @@
         var debianUrl = null;
         var dockerUrl = null;
 
-        function getUrl(url) {
+        function submitForm() {
+            getUrl("/createRpmUrl", "getUrlRpmIframe")
+            getUrl("/createDebianUrl", "getUrlDebianIframe");
+            getUrl("/createDockerUrl", "getUrlGenericIframe")
+        }
+
+        function getUrl(url, iframe) {
             var userName = document.getElementById("userName").value;
             url += "?userName=" + userName;
-            document.getElementById("getUrlIframe").src = url;
+            document.getElementById(iframe).src = url;
         }
 
         function setRpmUrl(url) {
             if (url != null && url != "null" && url != "undefined") {
                 rpmUrl = url;
-                getUrl("/createDebianUrl");
             } else {
-                window.setTimeout(getUrl("/rpmUrl"), 1000);
+                window.setTimeout(getUrl("/rpmUrl", "getUrlRpmIframe"), 1000);
             }
         }
 
         function setDebianUrl(url) {
             if (url != null && url != "null" && url != "undefined") {
                 debianUrl = url;
-                getUrl("/createDockerUrl");
             } else {
-                window.setTimeout(getUrl("/debianUrl"), 1000);
+                window.setTimeout(getUrl("/debianUrl", "getUrlDebianIframe"), 1000);
             }
         }
 
@@ -41,25 +45,25 @@
             if (url != null && url != "null" && url != "undefined") {
                 dockerUrl = url;
             } else {
-                window.setTimeout(getUrl("/dockerUrl"), 1000);
+                window.setTimeout(getUrl("/dockerUrl", "getUrlDockerIframe"), 1000);
             }
         }
 
         function downloadRpm() {
             if (rpmUrl != null) {
-                downloadRpmframe.src = rpmUrl;
+                document.getElementById("downloadRpmIframe").src = rpmUrl;
             }
         }
 
         function downloadDebian() {
             if (debianUrl != null) {
-                downloadDebianframe.src = debianUrl;
+                document.getElementById("downloadDebianIframe").src = debianUrl;
             }
         }
 
         function downloadDocker() {
             if (dockerUrl != null) {
-                downloadDockerframe.src = dockerUrl;
+                document.getElementById("downloadGenericIframe").src = dockerUrl;
             }
         }
     </script>
@@ -106,7 +110,7 @@
                                 <input class="login" type="password" />
                             </div>
                             <div>
-                                <div onclick="getUrl('/createRpmUrl');" class="login-button">Sign in</div>
+                                <div onclick="submitForm();" class="login-button">Sign in</div>
                             </div>
                     </div>
                 </div>
@@ -145,9 +149,12 @@
     <div class="row text-center credits">
         <a href="http://www.bintray.com" target="_blank"><img border="0" src="/images/dls-by-bintray.png" /></a>
     </div>
-    <iframe id="getUrlIframe" src="" style="display:none"></iframe>
-    <iframe id="downloadRpmframe" src="" style="display:none"></iframe>
-    <iframe id="downloadDebianframe" src="" style="display:none"></iframe>
-    <iframe id="downloadDockerframe" src="" style="display:none"></iframe>
+    <iframe id="getUrlRpmIframe" src="" style="display:none"></iframe>
+    <iframe id="getUrlDebianIframe" src="" style="display:none"></iframe>
+    <iframe id="getUrlGenericIframe" src="" style="display:none"></iframe>
+
+    <iframe id="downloadRpmIframe" src="" style="display:none"></iframe>
+    <iframe id="downloadDebianIframe" src="" style="display:none"></iframe>
+    <iframe id="downloadGenericIframe" src="" style="display:none"></iframe>
 </body>
 </html>

@@ -14,36 +14,26 @@ app.get('/', function (req, res) {
 })
 
 app.get('/createRpmUrl', function (req, res) {
-    bintrayDownload.setRepoName("download-center-example-rpm");
-    bintrayDownload.setPackageName("rpm");
-    bintrayDownload.setUserName(req.query.userName);
-    bintrayDownload.create();
-    res.send("<script>window.parent.setRpmUrl('" + bintrayDownload.getUrl() + "');</script>");
+    bintrayDownload.create("download-center-example-rpm", "rpm", req.query.userName);
+    res.send("<script>window.parent.setRpmUrl('" + bintrayDownload.getUrl("rpm") + "');</script>");
 })
-
 app.get('/createDebianUrl', function (req, res) {
-    bintrayDownload.setRepoName("download-center-example-debian");
-    bintrayDownload.setPackageName("debian");
-    bintrayDownload.setUserName(req.query.userName);
-    bintrayDownload.create();
-    res.send("<script>window.parent.setDebianUrl('" + bintrayDownload.getUrl() + "');</script>");
+    bintrayDownload.create("download-center-example-debian", "debian", req.query.userName);
+    res.send("<script>window.parent.setDebianUrl('" + bintrayDownload.getUrl("debian") + "');</script>");
 })
 app.get('/createDockerUrl', function (req, res) {
-    bintrayDownload.setRepoName("download-center-example-generic");
-    bintrayDownload.setPackageName("generic");
-    bintrayDownload.setUserName(req.query.userName);
-    bintrayDownload.create();
-    res.send("<script>window.parent.setDockerUrl('" + bintrayDownload.getUrl() + "');</script>");
+    bintrayDownload.create("download-center-example-generic", "generic", req.query.userName);
+    res.send("<script>window.parent.setDockerUrl('" + bintrayDownload.getUrl("generic") + "');</script>");
 })
 
 app.get('/rpmUrl', function (req, res) {
-    res.send("<script>window.parent.setRpmUrl('" + bintrayDownload.getUrl() + "');</script>");
+    res.send("<script>window.parent.setRpmUrl('" + bintrayDownload.getUrl("rpm") + "');</script>");
 })
 app.get('/debianUrl', function (req, res) {
-    res.send("<script>window.parent.setDebianUrl('" + bintrayDownload.getUrl() + "');</script>");
+    res.send("<script>window.parent.setDebianUrl('" + bintrayDownload.getUrl("debian") + "');</script>");
 })
 app.get('/dockerUrl', function (req, res) {
-    res.send("<script>window.parent.setDockerUrl('" + bintrayDownload.getUrl() + "');</script>");
+    res.send("<script>window.parent.setDockerUrl('" + bintrayDownload.getUrl("generic") + "');</script>");
 })
 
 app.get('/images/*', function(req, res, next){
@@ -65,10 +55,7 @@ app.get('/js/*', function(req, res, next){
 });
 
 var server = app.listen(3000, function () {
-
     var host = server.address().address
     var port = server.address().port
-
     console.log('Example app listening at http://%s:%s', host, port)
-
 })
