@@ -1,9 +1,5 @@
 {
-    "bintrayUser" : "user",
-    "bintrayKey" : "key",
     "subject" : "omersorg",
-    "repoName" : "privateRepo",
-    "packageName" : "someTestPackage",        
-    "callbackId" : "download_center_example",    
-    "callbackEmail" : "test@test.com"    
+    "callbackEmail" : "",
+    "callbackUrl" : ""
 }

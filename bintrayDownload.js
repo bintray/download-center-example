@@ -6,7 +6,7 @@ var config = require('./conf/config.json');
 var urls = new Array();
 
 function getAuth() {
-    var bintrayAuth = config.bintrayUser + ":"  + config.bintrayKey;
+    var bintrayAuth = process.env.BINTRAY_USER + ":"  + process.env.BINTRAY_KEY;
     return "Basic " + new Buffer(bintrayAuth).toString("base64");
 }
 
@@ -16,10 +16,15 @@ function getBintrayUrl(path) {
 
 function getSignedUrlRequestData(userName, validForSecs) {
     var urlValid = validForSecs == null ? "" : "\"valid_for_secs\":" + validForSecs + ",";
+    var email = (config.callbackEmail == null || config.callbackEmail == "") ?
+        "" : "\"callback_email\": \"" + config.callbackEmail + "\",";
+    var callbackUrl = (config.callbackUrl == null || config.callbackUrl == "")
+        ? "" : "\"callback_url\": \"" + config.callbackUrl + "\",";
     var data = "{" +
         urlValid +
-        "\"callback_id\": \"" + userName + "\"," +
-        "\"callback_email\": \"" + config.callbackEmail + "\"" +
+        email +
+        callbackUrl +
+        "\"callback_id\": \"" + userName + "\"" +
         "}";
     console.log('data: ' + data);
     return data;
@@ -85,6 +90,11 @@ function fetchPackageLatestVersion(repoName, packageName, userName, validForSecs
 // Initiate the asynchronous process of creating download URLs from Bintray.
 // After invoking this function, the getUrls method should be invoked to get the download URLs.
 module.exports.create = function (repoName, packageName, userName, validForSecs) {
+    if (process.env.BINTRAY_USER == null || process.env.BINTRAY_KEY == null) {
+        console.log("Bintray credentials must be defined as environment variables (BINTRAY_USER and BINTRAY_KEY).");
+        process.exit(code=1);
+    }
+
     console.log("Bintray user: ", config.bintrayUser);
 
     // To initiate the process, we first fetch from Bintray the latest version of the configured package:
