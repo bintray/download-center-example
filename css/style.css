@@ -1,0 +1,229 @@
+@font-face {
+    font-family: 'dos-xl';
+    src:url('dosis-extralight.eot?zh1mwc');
+    src:url('dosis-extralight.eot?#iefixzh1mwc') format('embedded-opentype'),
+    url('dosis-extralight.woff?zh1mwc') format('woff'),
+    url('dosis-extralight.ttf?zh1mwc') format('truetype'),
+    url('dosis-extralight.svg?zh1mwc#bintray-glyph') format('svg');;
+}
+
+@font-face {
+    font-family: 'dos-l';
+    src:url('dosis-light.eot?zh1mwc');
+    src:url('dosis-light.eot?#iefixzh1mwc') format('embedded-opentype'),
+    url('dosis-light.woff?zh1mwc') format('woff'),
+    url('dosis-light.ttf?zh1mwc') format('truetype'),
+    url('dosis-light.svg?zh1mwc#bintray-glyph') format('svg');;
+}
+textarea, input { outline: none; }
+
+body {
+    background: #363636;
+    color: #AAAAAA;
+    margin: 0;
+    font-family: 'dos-xl';
+}
+
+#logo {
+    margin: 30px;
+    max-width: 20em;
+}
+
+#main-panel {
+    background: #000000 url(../images/iso-bg.png) fixed;
+}
+
+.base-holder {
+    background: #000000 url(../images/iso-bg.png);
+    height: 425px;
+    text-align: center;
+}
+
+#download-panel {
+    background: #4a4a4a;
+    height: 105px;
+    text-align: center;
+}
+
+.login-gap {
+    height: 266px;
+}
+
+#download-panel .boxxu {
+    display: none;
+}
+
+/* LOGIN */
+
+#login-view {
+    cursor: default;
+    display: table;
+    padding-left: 10px;
+    height: 425px;
+    width: 100%;
+    vertical-align: bottom;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.row > div.align-top {
+    vertical-align: top;
+}
+
+.row > div {
+    vertical-align: bottom;
+}
+
+.cell {
+    display: table-cell;
+    vertical-align: bottom;
+    height: 200px;
+}
+
+#signin-title {
+    text-align: left;
+    position: relative;
+    top: -20px;
+}
+
+.text-right .cell {
+    height: 250px;
+    width: 100%;
+    text-align: right;
+    float: right;
+}
+
+#signin-intro {
+    height: 200px;
+}
+
+h1 {
+    color: #ffffff;
+    font-size: 6em;
+    font-family: 'dos-l';
+}
+
+h2 {
+    color: #3fc6c4;
+    font-size: 2.4em;
+}
+
+.row {
+    display: table;
+    width: 100%;
+}
+
+#froggo {
+    position: absolute;
+    vertical-align: top;
+    margin-top: -393px;
+}
+
+#login-form {
+    color: #8dc63f;
+    font-size: 2.4em;
+    position: relative;
+    top: -20px;
+}
+
+#lockpad-holder {
+    position: absolute;
+    top: 130px;
+    right: 30px;
+}
+
+#lockpad {
+    max-width: 10em;
+}
+
+p {
+    display: block;
+    width: 236px;
+    margin: 0 auto;
+    background: #000000;
+    color: #AAAAAA;
+    font-size: 0.45em;
+    line-height: 20px;
+    text-align: left;
+    padding: 5px;
+}
+
+p.light {
+    color: #777;
+    background: #ffffff;
+    text-align: right;
+    font-size: 0.5em;
+    margin-bottom: 20px;
+}
+
+.str {
+    color: #000000;
+}
+
+input.login {
+    width: 230px;
+    height: 34px;
+    background: #363636;
+    color: #ffffff;
+    font-family: 'dos-xl';
+    border: 0;
+    font-size: 24px;
+    padding-left: 10px;
+}
+
+.login-button {
+    background: #004a80;
+    width: 175px;
+    text-align: center;
+    color: #ffffff;
+    height: 34px;
+    font-size: 24px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.login-button:hover {
+    color: #004a80;
+    background-color: #fff;
+}
+
+.login-button.disabled {
+    background: #eeeeee;
+    color: #888888;
+    cursor: not-allowed;
+}
+
+/** DOWNLOADS **/
+
+#downloads-view {
+    cursor: default;
+    font-size: 44px;
+}
+
+#downloads-view > div {
+    margin-top: 20px;
+}
+
+.dl-btn {
+    margin: 52px auto 52px auto;
+    background: url(../images/dl-btn.png) no-repeat 0px 0px;
+    height: 49px;
+    width: 246px;
+    cursor: pointer;
+    position: relative;
+}
+
+.dl-btn:hover {
+    background-position: 0px -49px;
+}
+
+.c1 { color: #00a99d; }
+.c2 { color: #00a651; }
+.c3 { color: #7da7d9; }
+.c4 { color: #a186be; }
+.c5 { color: #7da7d9; }
+
+.credits {
+    clear: both;
+    margin: 30px auto;
+}

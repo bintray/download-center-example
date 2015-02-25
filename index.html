@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <script type="text/javascript" src="/js/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="/js/home.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>Amphibian Software</title>
+
+    <script>
+        var rpmUrl = null;
+        var debianUrl = null;
+        var dockerUrl = null;
+
+        function getUrl(url) {
+            var userName = document.getElementById("userName").value;
+            url += "?userName=" + userName;
+            document.getElementById("getUrlIframe").src = url;
+        }
+
+        function setRpmUrl(url) {
+            if (url != null && url != "null" && url != "undefined") {
+                rpmUrl = url;
+                getUrl("/createDebianUrl");
+            } else {
+                window.setTimeout(getUrl("/rpmUrl"), 1000);
+            }
+        }
+
+        function setDebianUrl(url) {
+            if (url != null && url != "null" && url != "undefined") {
+                debianUrl = url;
+                getUrl("/createDockerUrl");
+            } else {
+                window.setTimeout(getUrl("/debianUrl"), 1000);
+            }
+        }
+
+        function setDockerUrl(url) {
+            if (url != null && url != "null" && url != "undefined") {
+                dockerUrl = url;
+            } else {
+                window.setTimeout(getUrl("/dockerUrl"), 1000);
+            }
+        }
+
+        function downloadRpm() {
+            if (rpmUrl != null) {
+                downloadRpmframe.src = rpmUrl;
+            }
+        }
+
+        function downloadDebian() {
+            if (debianUrl != null) {
+                downloadDebianframe.src = debianUrl;
+            }
+        }
+
+        function downloadDocker() {
+            if (dockerUrl != null) {
+                downloadDockerframe.src = dockerUrl;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div id="header">
+        <img src="/images/logo.png" id="logo" />
+    </div>
+    <div id="main-panel" class="visible-xs-block visible-sm-block visible-md-inline visible-lg-inline">
+        <div class="base-holder visible-xs-inline visible-sm-inline visible-md-block visible-lg-block">
+        <div id="login-view" class="container-fluid">
+            <div id="lockpad-holder">
+                <img id="lockpad" src="/css/locked59.svg" />
+            </div>
+            <div class="row">
+                <div id="signin-title" class="col-md-4 col-sm-12">
+                    <div class="login-gap hidden-sm hidden-xs"></div>
+                    <div class="cell">
+                        <div id="signin-intro">
+                            <h1>Sign in</h1>
+                            <h2>To access our download center</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-1 hidden-xs hidden-sm">
+                    <div class="login-gap hidden-sm hidden-xs"></div>
+                    <div class="cell">
+                        <img src="/images/froggo.png" id="froggo" />
+                    </div>
+                </div>
+                <div class="col-md-7 text-right">
+                    <div class="login-gap hidden-sm hidden-xs"></div>
+                    <div class="cell">
+                        <div id="login-form">
+                            <div class="visible-xs-block visible-sm-inline visible-md-inline visible-lg-inline">
+                                Username:
+                            </div>
+                            <input id="userName" class="login" type="text" />
+                            <div>
+                                <div class="visible-xs-block visible-sm-inline visible-md-inline visible-lg-inline">
+                                    Password:
+                                </div>
+                                <input class="login" type="password" />
+                            </div>
+                            <div>
+                                <div onclick="getUrl('/createRpmUrl');" class="login-button">Sign in</div>
+                            </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div id="downloads-view" class="container-fluid" style="display: none;">
+                <div class="col-md-4">
+                    <img src="/images/dl-1.png" />
+                    <div><span class="c1">Agent</span><span class="c2">Crawler</span></div>
+                    <p>A non-blocking crawler which makes monitoring websites and disseminating changes a walk in the park</p>
+                    <p class="light">RPM Package <span class="str">$5</span></p>
+                    <div onclick="downloadRpm();" class="dl-btn hidden-xs"></div>
+                </div>
+                <div class="col-md-4">
+                    <img src="/images/dl-2.png" />
+                    <div><span class="c3">Toe</span><span class="c4">DB</span></div>
+                    <p>Powerful but simple database for REST-oriented applications which helps you define services as you go</p>
+                    <p class="light">Debian Package <span class="str">$12</span></p>
+                    <div onclick="downloadDebian()" class="dl-btn hidden-xs"></div>
+                </div>
+                <div class="col-md-4">
+                    <img src="/images/dl-3.png" />
+                    <div><span class="c2">Frog</span><span class="c5">Charts</span></div>
+                    <p>An all-around charting server which provides real-time visualizations for mobile and web platforms</p>
+                    <p class="light">Docker Container <span class="str">$75</span></p>
+                    <div onclick="downloadDocker()" class="dl-btn hidden-xs"></div>
+                </div>
+        </div>
+    </div>
+    </div>
+    <div id="download-panel">
+
+    </div>
+
+    <div class="row text-center credits">
+        <a href="http://www.bintray.com" target="_blank"><img border="0" src="/images/dls-by-bintray.png" /></a>
+    </div>
+    <iframe id="getUrlIframe" src="" style="display:none"></iframe>
+    <iframe id="downloadRpmframe" src="" style="display:none"></iframe>
+    <iframe id="downloadDebianframe" src="" style="display:none"></iframe>
+    <iframe id="downloadDockerframe" src="" style="display:none"></iframe>
+</body>
+</html>
