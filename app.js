@@ -22,7 +22,7 @@ app.get('/createDebianUrl', function (req, res) {
     res.send("<script>window.parent.setDebianUrl('" + bintrayDownload.getUrl("debian") + "');</script>");
 })
 app.get('/createDockerUrl', function (req, res) {
-    bintrayDownload.create("download-center-example-generic", "generic", req.query.userName, 30);
+    bintrayDownload.create("download-center-example-generic", "generic", req.query.userName, 60);
     res.send("<script>window.parent.setDockerUrl('" + bintrayDownload.getUrl("generic") + "');</script>");
 })
 

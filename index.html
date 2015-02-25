@@ -13,7 +13,14 @@
         var debianUrl = null;
         var dockerUrl = null;
 
+        function clearUrls() {
+            rpmUrl = null;
+            debianUrl = null;
+            dockerUrl = null;
+        }
+
         function submitForm() {
+            clearUrls();
             getUrl("/createRpmUrl", "getUrlRpmIframe")
             getUrl("/createDebianUrl", "getUrlDebianIframe");
             getUrl("/createDockerUrl", "getUrlGenericIframe")
@@ -51,22 +58,19 @@
 
         function downloadRpm() {
             if (rpmUrl != null) {
-                window.open(rpmUrl);
-                //document.getElementById("downloadRpmIframe").src = rpmUrl;
+                window.location.href = rpmUrl;
             }
         }
 
         function downloadDebian() {
             if (debianUrl != null) {
-                window.open(debianUrl);
-                //document.getElementById("downloadDebianIframe").src = debianUrl;
+                window.location.href = debianUrl;
             }
         }
 
         function downloadDocker() {
             if (dockerUrl != null) {
-                window.open(dockerUrl);
-                //document.getElementById("downloadGenericIframe").src = dockerUrl;
+                window.location.href = dockerUrl;
             }
         }
     </script>
@@ -79,9 +83,6 @@
     <div id="main-panel" class="visible-xs-block visible-sm-block visible-md-inline visible-lg-inline">
         <div class="base-holder visible-xs-inline visible-sm-inline visible-md-block visible-lg-block">
         <div id="login-view" class="container-fluid">
-            <div id="lockpad-holder">
-                <img id="lockpad" src="/css/locked59.svg" />
-            </div>
             <div class="row">
                 <div id="signin-title" class="col-md-4 col-sm-12">
                     <div class="login-gap hidden-sm hidden-xs"></div>
@@ -126,21 +127,28 @@
                     <div><span class="c1">Agent</span><span class="c2">Crawler</span></div>
                     <p>A non-blocking crawler which makes monitoring websites and disseminating changes a walk in the park</p>
                     <p class="light">RPM Package <span class="str">$5</span></p>
-                    <div onclick="downloadRpm();" class="dl-btn hidden-xs"></div>
+                    <div id="divDownloadRpm"></div>
+                    <a href="javascript:downloadRpm()">
+                        <div class="dl-btn hidden-xs"></div>
+                    </a>
                 </div>
                 <div class="col-md-4">
                     <img src="/images/dl-2.png" />
                     <div><span class="c3">Toe</span><span class="c4">DB</span></div>
                     <p>Powerful but simple database for REST-oriented applications which helps you define services as you go</p>
                     <p class="light">Debian Package <span class="str">$12</span></p>
-                    <div onclick="downloadDebian()" class="dl-btn hidden-xs"></div>
+                    <a href="javascript:downloadDebian()">
+                        <div class="dl-btn hidden-xs"></div>
+                    </a>
                 </div>
                 <div class="col-md-4">
                     <img src="/images/dl-3.png" />
                     <div><span class="c2">Frog</span><span class="c5">Charts</span></div>
                     <p>An all-around charting server which provides real-time visualizations for mobile and web platforms</p>
                     <p class="light">Docker Container <span class="str">$75</span></p>
-                    <div onclick="downloadDocker()" class="dl-btn hidden-xs"></div>
+                    <a href="javascript:downloadDocker()">
+                        <div class="dl-btn hidden-xs"></div>
+                    </a>
                 </div>
         </div>
     </div>
@@ -155,9 +163,5 @@
     <iframe id="getUrlRpmIframe" src="" style="display:none"></iframe>
     <iframe id="getUrlDebianIframe" src="" style="display:none"></iframe>
     <iframe id="getUrlGenericIframe" src="" style="display:none"></iframe>
-
-    <iframe id="downloadRpmIframe" src="" style="display:none"></iframe>
-    <iframe id="downloadDebianIframe" src="" style="display:none"></iframe>
-    <iframe id="downloadGenericIframe" src="" style="display:none"></iframe>
 </body>
 </html>
