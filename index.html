@@ -51,19 +51,22 @@
 
         function downloadRpm() {
             if (rpmUrl != null) {
-                document.getElementById("downloadRpmIframe").src = rpmUrl;
+                window.open(rpmUrl);
+                //document.getElementById("downloadRpmIframe").src = rpmUrl;
             }
         }
 
         function downloadDebian() {
             if (debianUrl != null) {
-                document.getElementById("downloadDebianIframe").src = debianUrl;
+                window.open(debianUrl);
+                //document.getElementById("downloadDebianIframe").src = debianUrl;
             }
         }
 
         function downloadDocker() {
             if (dockerUrl != null) {
-                document.getElementById("downloadGenericIframe").src = dockerUrl;
+                window.open(dockerUrl);
+                //document.getElementById("downloadGenericIframe").src = dockerUrl;
             }
         }
     </script>
