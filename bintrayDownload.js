@@ -14,10 +14,10 @@ function getBintrayUrl(path) {
     return "https://api.bintray.com" + path;
 }
 
-function getSignedUrlRequestData(userName) {
-    var time = new Date().getTime() + 2 * 60 * 60 * 1000 - 10 * 60 * 1000;
+function getSignedUrlRequestData(userName, validForSecs) {
+    var urlValid = validForSecs == null ? "" : "\"valid_for_secs\":" + validForSecs + ",";
     var data = "{" +
-        "\"expiry\":" + time + "," +
+        urlValid +
         "\"callback_id\": \"" + userName + "\"," +
         "\"callback_email\": \"" + config.callbackEmail + "\"" +
         "}";
@@ -25,14 +25,14 @@ function getSignedUrlRequestData(userName) {
     return data;
 }
 
-function createSignedUrlForFile(path, repoName, packageName, userName) {
+function createSignedUrlForFile(path, repoName, packageName, userName, validForSecs) {
     console.log("Creating signed URL for file ", path);
     var path = '/signed_url/' + config.subject + '/' + repoName + '/' + path;
 
     request.post({
         headers: {'Authorization' : getAuth()},
         url: getBintrayUrl(path),
-        body: getSignedUrlRequestData(userName)
+        body: getSignedUrlRequestData(userName, validForSecs)
     }, function(error, response, body){
         if (error == null) {
             console.log('Response: ' + body);
@@ -45,7 +45,7 @@ function createSignedUrlForFile(path, repoName, packageName, userName) {
     }.bind(this));
 }
 
-function fetchVersionFilesUrls(repoName, packageName, userName, version) {
+function fetchVersionFilesUrls(repoName, packageName, userName, version, validForSecs) {
     console.log('Fetching files for package: ' + packageName + " and version: " + version);
     var path = '/packages/' + config.subject + '/'  + repoName + '/' + packageName + '/versions/' + version + '/files';
 
@@ -56,14 +56,14 @@ function fetchVersionFilesUrls(repoName, packageName, userName, version) {
         if (error == null) {
             console.log('Files fetched: ' + body);
             var json = JSON.parse(body);
-            createSignedUrlForFile(json[0].path, repoName, packageName, userName);
+            createSignedUrlForFile(json[0].path, repoName, packageName, userName, validForSecs);
         } else {
             console.log('Error: ' + error);
         }
     }.bind(this));
 }
 
-function fetchPackageLatestVersion(repoName, packageName, userName) {
+function fetchPackageLatestVersion(repoName, packageName, userName, validForSecs) {
     var path = '/packages/' + config.subject + '/' + repoName + '/' + packageName + '/versions/_latest';
 
     request.get({
@@ -75,7 +75,7 @@ function fetchPackageLatestVersion(repoName, packageName, userName) {
             var json = JSON.parse(body);
             var packageVersion = json.name;
             console.log('Latest version for package: ' + packageVersion);
-            fetchVersionFilesUrls(repoName, packageName, userName, packageVersion)
+            fetchVersionFilesUrls(repoName, packageName, userName, packageVersion, validForSecs);
         } else {
             console.log('Error: ' + error);
         }
@@ -84,11 +84,11 @@ function fetchPackageLatestVersion(repoName, packageName, userName) {
 
 // Initiate the asynchronous process of creating download URLs from Bintray.
 // After invoking this function, the getUrls method should be invoked to get the download URLs.
-module.exports.create = function (repoName, packageName, userName) {
+module.exports.create = function (repoName, packageName, userName, validForSecs) {
     console.log("Bintray user: ", config.bintrayUser);
 
     // To initiate the process, we first fetch from Bintray the latest version of the configured package:
-    fetchPackageLatestVersion(repoName, packageName, userName);
+    fetchPackageLatestVersion(repoName, packageName, userName, validForSecs);
 }
 
 // Returns a signed URL.
