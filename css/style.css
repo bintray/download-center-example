@@ -151,7 +151,7 @@ p {
 p.light {
     color: #777;
     background: #ffffff;
-    text-align: right;
+    text-align: center;
     font-size: 0.5em;
     margin-bottom: 20px;
 }
